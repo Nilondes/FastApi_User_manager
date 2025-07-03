@@ -1,21 +1,20 @@
 from http import HTTPStatus
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from api.v1.dependencies import get_current_superuser
 from api.v1.handlers import get_all_users, get_user_by_email, post_new_user, update_user_data
-from api.v1.models import CreateUser, User, UpdateUser
+from api.v1.models import UserCreate, UserInDB, UserUpdate
 from db.connectors import get_db_session
 
 router = APIRouter()
 
 
-@router.get("", response_model=List[User])
-async def get_users(request: Request, session: AsyncSession = Depends(get_db_session)):
-    if not request.session.get("is_superuser"):
-        raise HTTPException(status_code=403, detail="Forbidden")
+@router.get("", response_model=List[UserInDB], dependencies=[Depends(get_current_superuser)])
+async def get_users(session: AsyncSession = Depends(get_db_session)):
 
     users = await get_all_users(session)
 
@@ -26,11 +25,10 @@ async def get_users(request: Request, session: AsyncSession = Depends(get_db_ses
     return users
 
 
-@router.get("/{email}", response_model=User)
-async def get_user(request: Request, email: str,
+@router.get("/{email}", response_model=UserInDB, dependencies=[Depends(get_current_superuser)])
+async def get_user(email: str,
                    session: AsyncSession = Depends(get_db_session)):
-    if not request.session.get("is_superuser"):
-        raise HTTPException(status_code=403, detail="Forbidden")
+
     user = await get_user_by_email(session, email=email)
 
     if not user:
@@ -40,29 +38,32 @@ async def get_user(request: Request, email: str,
     return user
 
 
-@router.post("", response_model=User)
-async def add_user(request: Request, user: CreateUser,
-                   session: AsyncSession = Depends(get_db_session)):
-    if not request.session.get("is_superuser"):
-        raise HTTPException(status_code=403, detail="Forbidden")
-    success = await post_new_user(session, user=user)
+@router.post("", response_model=UserInDB, dependencies=[Depends(get_current_superuser)])
+async def add_user(user: UserCreate, session: AsyncSession = Depends(get_db_session)):
+    existing_user = await get_user_by_email(session, user.email)
+    if existing_user:
+        raise HTTPException(
+            status_code=HTTPStatus.BAD_REQUEST,
+            detail="User with this email already exists"
+        )
 
-    if not success:
+    new_user = await post_new_user(session, user=user)
+
+
+    if not new_user:
         raise HTTPException(status_code=HTTPStatus.BAD_REQUEST,
                             detail="No user created")
 
-    return user
+    return new_user
 
 
-@router.patch("/{email}", response_model=User)
+@router.patch("/{email}", response_model=UserInDB, dependencies=[Depends(get_current_superuser)])
 async def update_user(
-    request: Request,
     email: str,
-    user_data: UpdateUser,
+    user_data: UserUpdate,
     session: AsyncSession = Depends(get_db_session),
 ):
-    if not request.session.get("is_superuser"):
-        raise HTTPException(status_code=403, detail="Forbidden")
+
     updated_user = await update_user_data(session, email, user_data)
     if not updated_user:
         raise HTTPException(

@@ -11,4 +11,10 @@ class ConnectorSettings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env.dev.pg", env_prefix="pg_")
 
 
+class Secret(BaseSettings):
+    secret: str
+
+    model_config = SettingsConfigDict(env_file=".env.dev.JWT", env_prefix="jwt_")
+
 settings = ConnectorSettings()
+secret = Secret()

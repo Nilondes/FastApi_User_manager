@@ -23,6 +23,5 @@ sdist/
 var/
 wheels/
 .installed.cfg
-*.ipynb_checkpoints!/.env.dev.ya
-/.env.dev.ya
-/uploads/
+/.env.dev.pg
+/.env.dev.JWT

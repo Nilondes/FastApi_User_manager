@@ -4,7 +4,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from sqlalchemy import select, insert
 
-from api.v1.models import CreateUser, UpdateUser
+from api.v1.models import UserCreate, UserUpdate
+from core.security import get_password_hash
 from db.models import User
 
 
@@ -26,38 +27,44 @@ async def get_user_by_email(session: AsyncSession, email: str) -> User:
     return result.scalars().first()
 
 
-async def post_new_user(session: AsyncSession, user: CreateUser) -> bool:
+async def post_new_user(session: AsyncSession, user: UserCreate) -> bool:
     """Create new user."""
 
-    stmt = insert(User).values(user.dict())
-    result = await session.execute(stmt)
+    user_data = user.dict(exclude={"password"})
+    user_data["hashed_password"] = get_password_hash(user.password.get_secret_value())
+    user_data.update({
+        "is_superuser": False,
+        "is_active": True
+    })
+    db_user = User(**user_data)
+
+    session.add(db_user)
     await session.commit()
+    await session.refresh(db_user)
 
-    if result:
-        return True
-
-    return False
+    return db_user
 
 
 async def update_user_data(
         session: AsyncSession,
         email: str,
-        user_data: UpdateUser
+        user: UserUpdate
 ) -> Optional[User]:
     """Update user data."""
+    user_data = user.dict(exclude={"password"})
+    user_data["hashed_password"] = get_password_hash(user.password.get_secret_value())
+    user_data.update({
+        "is_superuser": False,
+        "is_active": True
+    })
     user = await get_user_by_email(session, email)
     if not user:
         return None
 
-    update_data = user_data.dict(exclude_unset=True)
-    for key, value in update_data.items():
+    for key, value in user_data.items():
         setattr(user, key, value)
 
     session.add(user)
     await session.commit()
     await session.refresh(user)
     return user
-
-
-
-

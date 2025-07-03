@@ -12,6 +12,7 @@ class User(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String(255), nullable=False)
+    hashed_password = Column(String, nullable=False)
     email = Column(String(320), unique=True, index=True, nullable=False)
     gender = Column(Boolean(), nullable=False)
     age = Column(Integer(), nullable=False)
