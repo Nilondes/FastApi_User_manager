@@ -2,20 +2,39 @@ from typing import Sequence, Optional
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from sqlalchemy import select
+from sqlalchemy import select, and_
 
 from api.v1.models import UserCreate, UserUpdate
 from core.security import get_password_hash
 from db.models import User
 
 
-async def get_all_users(session: AsyncSession) -> Sequence[User]:
-    """Select all users."""
+async def get_all_users(
+        session: AsyncSession,
+        gender: Optional[bool] = None,
+        min_age: Optional[int] = None,
+        max_age: Optional[int] = None
+        ) -> Sequence[User]:
+            """Select all users."""
+            conditions = []
 
-    stmt = select(User)
-    result = await session.execute(stmt)
+            stmt = select(User)
 
-    return result.scalars().all()
+            if gender is not None:
+                conditions.append(User.gender == gender)
+
+            if min_age:
+                conditions.append(User.age >= min_age)
+
+            if max_age:
+                conditions.append(User.age <= max_age)
+
+            if conditions:
+                    stmt = stmt.where(and_(*conditions))
+
+            result = await session.execute(stmt)
+
+            return result.scalars().all()
 
 
 async def get_user_by_email(session: AsyncSession, email: str) -> User:

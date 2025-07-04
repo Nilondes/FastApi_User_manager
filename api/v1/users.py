@@ -1,7 +1,7 @@
 from http import HTTPStatus
-from typing import List
+from typing import List, Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -15,15 +15,30 @@ router = APIRouter()
 
 
 @router.get("", response_model=List[UserInDB], dependencies=[Depends(get_current_superuser)])
-async def get_users(session: AsyncSession = Depends(get_db_session)):
+async def get_users(
+        session: AsyncSession = Depends(get_db_session),
+        gender: Optional[bool] = Query(
+            None,
+            description="Filter by gender (false for male, true for female)"),
+        min_age: Optional[int] = Query(
+            None,
+            description="Minimum age (inclusive)"),
+        max_age: Optional[int] = Query(
+            None,
+            description="Maximum age (inclusive)")
+        ):
+        users = await get_all_users(
+            session,
+            gender=gender,
+            min_age=min_age,
+            max_age=max_age
+        )
 
-    users = await get_all_users(session)
+        if not users:
+            raise HTTPException(status_code=HTTPStatus.NOT_FOUND,
+                                detail="No users found")
 
-    if not users:
-        raise HTTPException(status_code=HTTPStatus.NOT_FOUND,
-                            detail="No users found")
-
-    return users
+        return users
 
 
 @router.get("/me", response_model=UserInDB)
