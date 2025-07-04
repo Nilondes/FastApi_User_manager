@@ -53,10 +53,6 @@ async def update_user_data(
     """Update user data."""
     user_data = user.dict(exclude={"password"})
     user_data["hashed_password"] = get_password_hash(user.password.get_secret_value())
-    user_data.update({
-        "is_superuser": False,
-        "is_active": True
-    })
     user = await get_user_by_email(session, email)
     if not user:
         return None
