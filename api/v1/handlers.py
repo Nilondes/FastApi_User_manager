@@ -2,7 +2,7 @@ from typing import Sequence, Optional
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from sqlalchemy import select, insert
+from sqlalchemy import select
 
 from api.v1.models import UserCreate, UserUpdate
 from core.security import get_password_hash

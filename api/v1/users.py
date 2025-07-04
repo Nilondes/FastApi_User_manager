@@ -5,10 +5,11 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api.v1.dependencies import get_current_superuser
+from api.v1.dependencies import get_current_superuser, get_current_active_user
 from api.v1.handlers import get_all_users, get_user_by_email, post_new_user, update_user_data
-from api.v1.models import UserCreate, UserInDB, UserUpdate
+from api.v1.models import UserCreate, UserInDB, UserUpdate, UserSelfUpdate
 from db.connectors import get_db_session
+from db.models import User
 
 router = APIRouter()
 
@@ -23,6 +24,29 @@ async def get_users(session: AsyncSession = Depends(get_db_session)):
                             detail="No users found")
 
     return users
+
+
+@router.get("/me", response_model=UserInDB)
+async def get_my_profile(
+    current_user: User = Depends(get_current_active_user),
+    session: AsyncSession = Depends(get_db_session)
+):
+    """Get current user's profile"""
+
+    return current_user
+
+
+@router.patch("/me", response_model=UserInDB)
+async def update_my_profile(
+        user_data: UserSelfUpdate,
+        current_user: User = Depends(get_current_active_user),
+        session: AsyncSession = Depends(get_db_session),
+):
+    allowed_fields = ["name", "password", "gender", "age"]
+    update_data = {k: v for k, v in user_data.dict().items()
+                   if k in allowed_fields and v is not None}
+
+    return await update_user_data(session, current_user.email, UserSelfUpdate(**update_data))
 
 
 @router.get("/{email}", response_model=UserInDB, dependencies=[Depends(get_current_superuser)])
