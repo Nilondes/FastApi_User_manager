@@ -23,6 +23,13 @@ class UserUpdate(BaseModel):
     is_superuser: Optional[bool]
 
 
+class UserSelfUpdate(BaseModel):
+    name: Optional[str] = None
+    password: Optional[SecretStr] = None
+    gender: Optional[bool]
+    age: Optional[int]
+
+
 class UserInDB(UserBase):
     id: UUID4
     name: str

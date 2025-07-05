@@ -1,28 +1,67 @@
 from http import HTTPStatus
-from typing import List
+from typing import List, Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api.v1.dependencies import get_current_superuser
+from api.v1.dependencies import get_current_superuser, get_current_active_user
 from api.v1.handlers import get_all_users, get_user_by_email, post_new_user, update_user_data
-from api.v1.models import UserCreate, UserInDB, UserUpdate
+from api.v1.models import UserCreate, UserInDB, UserUpdate, UserSelfUpdate
 from db.connectors import get_db_session
+from db.models import User
 
 router = APIRouter()
 
 
 @router.get("", response_model=List[UserInDB], dependencies=[Depends(get_current_superuser)])
-async def get_users(session: AsyncSession = Depends(get_db_session)):
+async def get_users(
+        session: AsyncSession = Depends(get_db_session),
+        gender: Optional[bool] = Query(
+            None,
+            description="Filter by gender (false for male, true for female)"),
+        min_age: Optional[int] = Query(
+            None,
+            description="Minimum age (inclusive)"),
+        max_age: Optional[int] = Query(
+            None,
+            description="Maximum age (inclusive)")
+        ):
+        users = await get_all_users(
+            session,
+            gender=gender,
+            min_age=min_age,
+            max_age=max_age
+        )
 
-    users = await get_all_users(session)
+        if not users:
+            raise HTTPException(status_code=HTTPStatus.NOT_FOUND,
+                                detail="No users found")
 
-    if not users:
-        raise HTTPException(status_code=HTTPStatus.NOT_FOUND,
-                            detail="No users found")
+        return users
 
-    return users
+
+@router.get("/me", response_model=UserInDB)
+async def get_my_profile(
+    current_user: User = Depends(get_current_active_user),
+    session: AsyncSession = Depends(get_db_session)
+):
+    """Get current user's profile"""
+
+    return current_user
+
+
+@router.patch("/me", response_model=UserInDB)
+async def update_my_profile(
+        user_data: UserSelfUpdate,
+        current_user: User = Depends(get_current_active_user),
+        session: AsyncSession = Depends(get_db_session),
+):
+    allowed_fields = ["name", "password", "gender", "age"]
+    update_data = {k: v for k, v in user_data.dict().items()
+                   if k in allowed_fields and v is not None}
+
+    return await update_user_data(session, current_user.email, UserSelfUpdate(**update_data))
 
 
 @router.get("/{email}", response_model=UserInDB, dependencies=[Depends(get_current_superuser)])
