@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.v1.dependencies import get_current_superuser, get_current_active_user
-from api.v1.handlers import get_all_users, get_user_by_email, post_new_user, update_user_data
+from api.v1.handlers import get_all_users, get_user_by_email, post_new_user, update_user_data, delete_user_by_email
 from api.v1.models import UserCreate, UserInDB, UserUpdate, UserSelfUpdate
 from db.connectors import get_db_session
 from db.models import User
@@ -110,3 +110,18 @@ async def update_user(
             detail="User not found"
         )
     return updated_user
+
+
+@router.delete("/{email}",
+               dependencies=[Depends(get_current_superuser)])
+async def delete_user(
+    email: str,
+    session: AsyncSession = Depends(get_db_session),
+):
+    """Delete a user by email (admin only)."""
+    deleted = await delete_user_by_email(session, email)
+    if not deleted:
+        raise HTTPException(
+            status_code=HTTPStatus.NOT_FOUND,
+            detail="User not found"
+        )
