@@ -14,7 +14,7 @@ The access to any user's CRUD is available only for administrator.
 - **Testing**: Postman
 - **Deploy**: Docker, Docker Compose 
 
-##Available endpoints:
+## Available endpoints:
 
 POST /api/v1/auth - to het access token
 {
