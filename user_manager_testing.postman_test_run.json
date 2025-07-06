@@ -1,0 +1,827 @@
+{
+	"id": "90683c7f-9f94-410a-ab29-ec72cc666888",
+	"name": "user_manager_testing",
+	"timestamp": "2025-07-06T09:20:14.833Z",
+	"collection_id": "46498813-757c8063-ad54-48d6-bd28-ff31f113a7e9",
+	"folder_id": 0,
+	"environment_id": "46498813-63de52b4-e471-403b-b4f3-13d563ac955b",
+	"totalPass": 30,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-07-06T09:20:06.305Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "707cadf9-495d-4bc6-8fb0-f1305e998b63",
+			"name": "Auth: Get Superuser Token",
+			"url": "http://localhost:8000/api/v1/auth/token",
+			"time": 407,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status 200": true,
+				"Has access token": true
+			},
+			"testPassFailCounts": {
+				"Status 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Has access token": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				407
+			],
+			"allTests": [
+				{
+					"Status 200": true,
+					"Has access token": true
+				}
+			]
+		},
+		{
+			"id": "8c41e6b9-5cde-4efa-9842-f40203646088",
+			"name": "Admin: Create Test User",
+			"url": "http://localhost:8000/api/v1/users",
+			"time": 496,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"User created": true
+			},
+			"testPassFailCounts": {
+				"User created": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				496
+			],
+			"allTests": [
+				{
+					"User created": true
+				}
+			]
+		},
+		{
+			"id": "1cb10e43-316d-4abf-81b2-a41c67ae726b",
+			"name": "Admin: Create Test 1 User",
+			"url": "http://localhost:8000/api/v1/users",
+			"time": 510,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"User created": true
+			},
+			"testPassFailCounts": {
+				"User created": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				510
+			],
+			"allTests": [
+				{
+					"User created": true
+				}
+			]
+		},
+		{
+			"id": "cf7015fb-ad62-4f77-bac6-e4bbfb1c8232",
+			"name": "Admin: Create Test 2 User",
+			"url": "http://localhost:8000/api/v1/users",
+			"time": 490,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"User created": true
+			},
+			"testPassFailCounts": {
+				"User created": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				490
+			],
+			"allTests": [
+				{
+					"User created": true
+				}
+			]
+		},
+		{
+			"id": "9f60666d-63a3-44ee-99ef-2142004da05e",
+			"name": "Admin: Create Test 4 User",
+			"url": "http://localhost:8000/api/v1/users",
+			"time": 553,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"User created": true
+			},
+			"testPassFailCounts": {
+				"User created": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				553
+			],
+			"allTests": [
+				{
+					"User created": true
+				}
+			]
+		},
+		{
+			"id": "7cd095c5-7f5a-4fb3-9a1f-62753d154a24",
+			"name": "Admin: Update Test User",
+			"url": "http://localhost:8000/api/v1/users/test_user@example.com",
+			"time": 510,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"User created": true
+			},
+			"testPassFailCounts": {
+				"User created": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				510
+			],
+			"allTests": [
+				{
+					"User created": true
+				}
+			]
+		},
+		{
+			"id": "fda3b27f-9d3a-43ed-9a65-cfb3ed34e365",
+			"name": "Admin: Block User",
+			"url": "http://localhost:8000/api/v1/users/test_user4@example.com",
+			"time": 523,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"User blocked": true
+			},
+			"testPassFailCounts": {
+				"User blocked": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				523
+			],
+			"allTests": [
+				{
+					"User blocked": true
+				}
+			]
+		},
+		{
+			"id": "385b789c-dc8e-4c8f-96ad-52b73ee87da2",
+			"name": "Admin: View all Users",
+			"url": "http://localhost:8000/api/v1/users",
+			"time": 27,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response contains exactly 5 users": true
+			},
+			"testPassFailCounts": {
+				"Response contains exactly 5 users": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				27
+			],
+			"allTests": [
+				{
+					"Response contains exactly 5 users": true
+				}
+			]
+		},
+		{
+			"id": "257514ea-444b-4c84-aaa8-3a81936e69af",
+			"name": "Admin: View all Users by age range",
+			"url": "http://localhost:8000/api/v1/users?min_age=29&max_age=51",
+			"time": 30,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response contains exactly 3 users": true
+			},
+			"testPassFailCounts": {
+				"Response contains exactly 3 users": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				30
+			],
+			"allTests": [
+				{
+					"Response contains exactly 3 users": true
+				}
+			]
+		},
+		{
+			"id": "0e38dd7d-2ce2-4b45-9c99-ac274268b10d",
+			"name": "Admin: View all Users by gender",
+			"url": "http://localhost:8000/api/v1/users?gender=false",
+			"time": 53,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Filter by gender: female only": true
+			},
+			"testPassFailCounts": {
+				"Filter by gender: female only": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				53
+			],
+			"allTests": [
+				{
+					"Filter by gender: female only": true
+				}
+			]
+		},
+		{
+			"id": "7e49467a-9ff8-4b08-b57c-b4d7865147cb",
+			"name": "Admin: View user by email",
+			"url": "http://localhost:8000/api/v1/users/test_user@example.com",
+			"time": 22,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"User found": true
+			},
+			"testPassFailCounts": {
+				"User found": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				22
+			],
+			"allTests": [
+				{
+					"User found": true
+				}
+			]
+		},
+		{
+			"id": "f50b6cd3-da86-49be-b591-f1f6dc7ea29f",
+			"name": "Auth: Get User Token",
+			"url": "http://localhost:8000/api/v1/auth/token",
+			"time": 467,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status 200": true,
+				"Has access token": true
+			},
+			"testPassFailCounts": {
+				"Status 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Has access token": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				467
+			],
+			"allTests": [
+				{
+					"Status 200": true,
+					"Has access token": true
+				}
+			]
+		},
+		{
+			"id": "486378d4-a38e-4ca4-b01b-3d774f1cd5b8",
+			"name": "View user data",
+			"url": "http://localhost:8000/api/v1/users/me",
+			"time": 29,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status 200": true,
+				"Check user data": true
+			},
+			"testPassFailCounts": {
+				"Status 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check user data": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				29
+			],
+			"allTests": [
+				{
+					"Status 200": true,
+					"Check user data": true
+				}
+			]
+		},
+		{
+			"id": "2979d3da-a906-4562-809f-26083017e5a1",
+			"name": "Update user data",
+			"url": "http://localhost:8000/api/v1/users/me",
+			"time": 620,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status 200": true,
+				"Profile updated": true
+			},
+			"testPassFailCounts": {
+				"Status 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Profile updated": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				620
+			],
+			"allTests": [
+				{
+					"Status 200": true,
+					"Profile updated": true
+				}
+			]
+		},
+		{
+			"id": "37b88f32-6d46-4b68-9e19-230efed42f73",
+			"name": "User: Create Test User",
+			"url": "http://localhost:8000/api/v1/users",
+			"time": 17,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status 403": true
+			},
+			"testPassFailCounts": {
+				"Status 403": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				17
+			],
+			"allTests": [
+				{
+					"Status 403": true
+				}
+			]
+		},
+		{
+			"id": "6302b9b5-e4df-42fd-af79-e6ce7ccc8413",
+			"name": "User: Update Test User",
+			"url": "http://localhost:8000/api/v1/users/test_user3@example.com",
+			"time": 19,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status 403": true
+			},
+			"testPassFailCounts": {
+				"Status 403": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				19
+			],
+			"allTests": [
+				{
+					"Status 403": true
+				}
+			]
+		},
+		{
+			"id": "0475fc22-66d6-4607-828a-5f3c57217617",
+			"name": "User: View all Users",
+			"url": "http://localhost:8000/api/v1/users",
+			"time": 18,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status 403": true
+			},
+			"testPassFailCounts": {
+				"Status 403": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				18
+			],
+			"allTests": [
+				{
+					"Status 403": true
+				}
+			]
+		},
+		{
+			"id": "af3a1bd8-7eb9-46e1-8a61-a79c7be365fd",
+			"name": "User: View user by email",
+			"url": "http://localhost:8000/api/v1/users/test_user3@example.com",
+			"time": 20,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status 403": true
+			},
+			"testPassFailCounts": {
+				"Status 403": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				20
+			],
+			"allTests": [
+				{
+					"Status 403": true
+				}
+			]
+		},
+		{
+			"id": "05081ff6-1eb8-4162-ae78-cf28015d3797",
+			"name": "Auth: Get blocked User Token",
+			"url": "http://localhost:8000/api/v1/auth/token",
+			"time": 473,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status 200": true,
+				"Has access token": true
+			},
+			"testPassFailCounts": {
+				"Status 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Has access token": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				473
+			],
+			"allTests": [
+				{
+					"Status 200": true,
+					"Has access token": true
+				}
+			]
+		},
+		{
+			"id": "1f6fc9b2-5a62-4b3f-a8d0-8e0d4c4ac58e",
+			"name": "View blocked user data",
+			"url": "http://localhost:8000/api/v1/users/me",
+			"time": 19,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status 403": true
+			},
+			"testPassFailCounts": {
+				"Status 403": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				19
+			],
+			"allTests": [
+				{
+					"Status 403": true
+				}
+			]
+		},
+		{
+			"id": "0843541f-a601-4cef-ad9b-ab0a45124e95",
+			"name": "User: Update Blocked User",
+			"url": "http://localhost:8000/api/v1/users/me",
+			"time": 18,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status 403": true
+			},
+			"testPassFailCounts": {
+				"Status 403": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				18
+			],
+			"allTests": [
+				{
+					"Status 403": true
+				}
+			]
+		},
+		{
+			"id": "79d6a3ce-6644-4c61-909a-984e6934bb05",
+			"name": "Admin: Remove user",
+			"url": "http://localhost:8000/api/v1/users/test_user@example.com",
+			"time": 79,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status 200": true
+			},
+			"testPassFailCounts": {
+				"Status 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				79
+			],
+			"allTests": [
+				{
+					"Status 200": true
+				}
+			]
+		},
+		{
+			"id": "96c067ec-6c8a-44af-98a0-2ac97c3f27e4",
+			"name": "Admin: Remove user 1",
+			"url": "http://localhost:8000/api/v1/users/test_user1@example.com",
+			"time": 61,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status 200": true
+			},
+			"testPassFailCounts": {
+				"Status 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				61
+			],
+			"allTests": [
+				{
+					"Status 200": true
+				}
+			]
+		},
+		{
+			"id": "518739bb-c978-4686-adeb-644d1769648e",
+			"name": "Admin: Remove user 2",
+			"url": "http://localhost:8000/api/v1/users/test_user2@example.com",
+			"time": 86,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status 200": true
+			},
+			"testPassFailCounts": {
+				"Status 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				86
+			],
+			"allTests": [
+				{
+					"Status 200": true
+				}
+			]
+		},
+		{
+			"id": "69baaa9b-32eb-4750-924c-d3e8aec43257",
+			"name": "Admin: Remove user 4",
+			"url": "http://localhost:8000/api/v1/users/test_user4@example.com",
+			"time": 27,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status 200": true
+			},
+			"testPassFailCounts": {
+				"Status 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				27
+			],
+			"allTests": [
+				{
+					"Status 200": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 5574,
+	"collection": {
+		"requests": [
+			{
+				"id": "707cadf9-495d-4bc6-8fb0-f1305e998b63",
+				"method": "POST"
+			},
+			{
+				"id": "8c41e6b9-5cde-4efa-9842-f40203646088",
+				"method": "POST"
+			},
+			{
+				"id": "1cb10e43-316d-4abf-81b2-a41c67ae726b",
+				"method": "POST"
+			},
+			{
+				"id": "cf7015fb-ad62-4f77-bac6-e4bbfb1c8232",
+				"method": "POST"
+			},
+			{
+				"id": "9f60666d-63a3-44ee-99ef-2142004da05e",
+				"method": "POST"
+			},
+			{
+				"id": "7cd095c5-7f5a-4fb3-9a1f-62753d154a24",
+				"method": "PATCH"
+			},
+			{
+				"id": "fda3b27f-9d3a-43ed-9a65-cfb3ed34e365",
+				"method": "PATCH"
+			},
+			{
+				"id": "385b789c-dc8e-4c8f-96ad-52b73ee87da2",
+				"method": "GET"
+			},
+			{
+				"id": "257514ea-444b-4c84-aaa8-3a81936e69af",
+				"method": "GET"
+			},
+			{
+				"id": "0e38dd7d-2ce2-4b45-9c99-ac274268b10d",
+				"method": "GET"
+			},
+			{
+				"id": "7e49467a-9ff8-4b08-b57c-b4d7865147cb",
+				"method": "GET"
+			},
+			{
+				"id": "f50b6cd3-da86-49be-b591-f1f6dc7ea29f",
+				"method": "POST"
+			},
+			{
+				"id": "486378d4-a38e-4ca4-b01b-3d774f1cd5b8",
+				"method": "GET"
+			},
+			{
+				"id": "2979d3da-a906-4562-809f-26083017e5a1",
+				"method": "PATCH"
+			},
+			{
+				"id": "37b88f32-6d46-4b68-9e19-230efed42f73",
+				"method": "POST"
+			},
+			{
+				"id": "6302b9b5-e4df-42fd-af79-e6ce7ccc8413",
+				"method": "PATCH"
+			},
+			{
+				"id": "0475fc22-66d6-4607-828a-5f3c57217617",
+				"method": "GET"
+			},
+			{
+				"id": "af3a1bd8-7eb9-46e1-8a61-a79c7be365fd",
+				"method": "GET"
+			},
+			{
+				"id": "05081ff6-1eb8-4162-ae78-cf28015d3797",
+				"method": "POST"
+			},
+			{
+				"id": "1f6fc9b2-5a62-4b3f-a8d0-8e0d4c4ac58e",
+				"method": "GET"
+			},
+			{
+				"id": "0843541f-a601-4cef-ad9b-ab0a45124e95",
+				"method": "PATCH"
+			},
+			{
+				"id": "79d6a3ce-6644-4c61-909a-984e6934bb05",
+				"method": "DELETE"
+			},
+			{
+				"id": "96c067ec-6c8a-44af-98a0-2ac97c3f27e4",
+				"method": "DELETE"
+			},
+			{
+				"id": "518739bb-c978-4686-adeb-644d1769648e",
+				"method": "DELETE"
+			},
+			{
+				"id": "69baaa9b-32eb-4750-924c-d3e8aec43257",
+				"method": "DELETE"
+			}
+		]
+	}
+}

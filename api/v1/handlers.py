@@ -83,3 +83,17 @@ async def update_user_data(
     await session.commit()
     await session.refresh(user)
     return user
+
+
+async def delete_user_by_email(
+        session: AsyncSession,
+        email: str
+) -> bool:
+    """Delete user by email."""
+    user = await get_user_by_email(session, email)
+    if not user:
+        return False
+
+    await session.delete(user)
+    await session.commit()
+    return True
