@@ -18,26 +18,39 @@ The access to any user's CRUD is available only for administrator.
 
 POST /api/v1/auth - to het access token
 {
+
   "username": "string",
+  
   "password": "string"
+  
 }
 
 Superuser endpoints (is_superuser=true):
 
 GET /api/v1/users/ - returns the list of users.
+
 Supports the following params (search filters):
+
 "min_age" = int,
+
 "max_age" = int,
+
 "gender" = bool
 
 POST /api/v1/users/ - create new user ("is_active" = true, "is_superuser"=false)
 
 {
+
   "email" = EmailStr,
+  
   "username" = str,
+  
   "password" = str,
+  
   "age" = int,
+  
   "gender" = bool
+  
 }
 
 GET /api/v1/users/{email} - get user info by email
@@ -45,12 +58,19 @@ GET /api/v1/users/{email} - get user info by email
 PATCH /api/v1/users/{email} - Update user info by emailm including block and grant superuser access.
 
 {
+
   "username" = str,
+  
   "password" = str,
+  
   "age" = int,
+  
   "gender" = bool,
+  
   "is_active" = bool,
+  
   "is_superuser" = bool
+  
 }
 
 DELETE /api/v1/users/{email} - remove user.
@@ -62,10 +82,15 @@ GET /api/v1/users/me - get user info
 PATCH /api/v1/users/me - update user info
 
 {
+
   "username" = str,
+  
   "password" = str,
+  
   "age" = int,
+  
   "gender" = bool,
+  
 }
 
 
@@ -115,38 +140,48 @@ pip install -r requirements.txt
 To start Docker from main directory:
 
 ```sh
-$ docker compose -f docker_compose_dev.yaml --env-file .env.dev.pg up -d
+docker compose -f docker_compose_dev.yaml --env-file .env.dev.pg up -d
 
 ```
 
 To make migrations:
 
 ```sh
-$ alembic upgrade head
+alembic upgrade head
 
 ```
 
 To start app:
 
 ```sh
-$ python3 main.py
+python3 main.py
 
 ```
 
 SWAGGER is available by /docs#
 
-Use postman file to tesk endpoints.
+Use postman file is provided to test endpoints.
 
 The variables are:
 
 {
+
   "base_url": "http://localhost:8000",
+  
   "admin_email": "admin@example.com",
+  
   "admin_password": "1234",
+  
   "test_user_email": "test_user@example.com",
+  
   "test_user_password": "test_password",
+  
   "test_user1_email": "test_use1r@example.com",
+  
   "test_user2_email": "test_user2@example.com",
+  
   "test_user3_email": "test_user3@example.com",
+  
   "test_user4_email": "test_user4@example.com"
+  
 }
