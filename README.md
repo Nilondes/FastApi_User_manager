@@ -16,7 +16,8 @@ The access to any user's CRUD is available only for administrator.
 
 ## Available endpoints:
 
-POST /api/v1/auth - to het access token
+POST /api/v1/auth - to get access token
+
 {
 
   "username": "string",
