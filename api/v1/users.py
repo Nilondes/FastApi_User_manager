@@ -27,18 +27,18 @@ async def get_users(
             None,
             description="Maximum age (inclusive)")
         ):
-        users = await get_all_users(
-            session,
-            gender=gender,
-            min_age=min_age,
-            max_age=max_age
-        )
+    users = await get_all_users(
+        session,
+        gender=gender,
+        min_age=min_age,
+        max_age=max_age
+    )
 
-        if not users:
-            raise HTTPException(status_code=HTTPStatus.NOT_FOUND,
-                                detail="No users found")
+    if not users:
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND,
+                            detail="No users found")
 
-        return users
+    return users
 
 
 @router.get("/me", response_model=UserInDB)

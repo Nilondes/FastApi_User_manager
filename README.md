@@ -1,4 +1,4 @@
-# FastApi_User_manager
+ FastApi_User_manager
 
 This FastAPI app allows management of users (create, edit, view, delete, block).
 
@@ -99,7 +99,7 @@ PATCH /api/v1/users/me - update user info
 
 ```sh
 git clone https://github.com/Nilondes/fastapi_user_manager.git
-cd fastapi_user_management
+cd fastapi_user_manager
 ```
 
 The root directory should contain ".env.dev.JWT" file with the content:

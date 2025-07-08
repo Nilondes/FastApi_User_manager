@@ -18,8 +18,3 @@ class User(Base):
     age = Column(Integer(), nullable=False)
     is_active = Column(Boolean(), default=True)
     is_superuser = Column(Boolean(), default=False, nullable=False)
-
-# TEST_DB_URL = (f"postgresql+asyncpg://{settings.user}"
-#                f":postgres"
-#                f"@{settings.host}"
-#                f":{settings.port}/test_db")
