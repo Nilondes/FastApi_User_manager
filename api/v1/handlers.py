@@ -15,26 +15,26 @@ async def get_all_users(
         min_age: Optional[int] = None,
         max_age: Optional[int] = None
         ) -> Sequence[User]:
-            """Select all users."""
-            conditions = []
+    """Select all users."""
+    conditions = []
 
-            stmt = select(User)
+    stmt = select(User)
 
-            if gender is not None:
-                conditions.append(User.gender == gender)
+    if gender is not None:
+        conditions.append(User.gender == gender)
 
-            if min_age:
-                conditions.append(User.age >= min_age)
+    if min_age:
+        conditions.append(User.age >= min_age)
 
-            if max_age:
-                conditions.append(User.age <= max_age)
+    if max_age:
+        conditions.append(User.age <= max_age)
 
-            if conditions:
-                    stmt = stmt.where(and_(*conditions))
+    if conditions:
+            stmt = stmt.where(and_(*conditions))
 
-            result = await session.execute(stmt)
+    result = await session.execute(stmt)
 
-            return result.scalars().all()
+    return result.scalars().all()
 
 
 async def get_user_by_email(session: AsyncSession, email: str) -> User:
